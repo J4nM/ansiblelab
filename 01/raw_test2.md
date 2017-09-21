@@ -17,8 +17,8 @@ root@nms1:~/ansible# ansible-playbook -i raw_test.inv raw_test.yaml
 PLAY [all] *****************************************************************************
                                                                                         
 TASK [raw] *****************************************************************************
-changed: [vqfx1]                                                                        
 changed: [vqfx2]                                                                        
+changed: [vqfx1]                                                                        
                                                                                         
 TASK [debug] ***************************************************************************
 ok: [vqfx2] => {                                                                        
@@ -61,11 +61,6 @@ ok: [vqfx1] => {
         "JUNOS py-base-i386 [15.1X53-D63.9]"                                            
     ]                                                                                   
 }                                                                                       
- [WARNING]: Could not match supplied host pattern, ignoring: nxos                       
-                                                                                        
-                                                                                        
-PLAY [nxos] ****************************************************************************
-skipping: no hosts matched                                                              
                                                                                         
 PLAY RECAP *****************************************************************************
 vqfx1                      : ok=2    changed=1    unreachable=0    failed=0             
