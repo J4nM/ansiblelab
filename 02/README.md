@@ -85,6 +85,9 @@ PLAY RECAP *********************************************************************
 vqfx1                      : ok=1    changed=0    unreachable=0    failed=0   
 vqfx2                      : ok=5    changed=4    unreachable=0    failed=0
 
+# cat results/noNTP.text                 
+vqfx2 No NTP configured on this device!
+#
 # grep ntp configs/*set*
 configs/vqfx1.set.conf:set system ntp server 192.168.1.4
 ```
