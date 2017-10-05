@@ -1,0 +1,17 @@
+---
+- name: junos_facts module
+  hosts: all
+  connection: local
+  gather_facts: no
+  tasks:
+
+  - name: Collect facts and configurion in text on device
+    junos_facts:
+      gather_subset: config
+      config_format: set
+    register: result
+
+  #- debug: var=result
+
+  - name: Save configuration to file in local directory
+    copy: content="{{ result.ansible_facts.ansible_net_config }}" dest=./configs/{{ inventory_hostname }}.set.conf

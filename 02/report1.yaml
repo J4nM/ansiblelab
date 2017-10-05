@@ -1,0 +1,16 @@
+---
+ - name: Retrieve configuration from Junos devices
+   hosts: all
+   roles:
+    - Juniper.junos
+   connection: local
+   gather_facts: no
+   tasks:
+   - name: Retrieve configuration from Junos devices
+     junos_get_config:
+      host={{ inventory_hostname }}
+      user={{ ansible_user }}
+      passwd={{ ansible_ssh_pass }}
+      dest={{playbook_dir}}/configs/{{ inventory_hostname }}.conf
+      format=text
+      #filter=snmp

@@ -1,0 +1,30 @@
+---
+ - name: Check if NTP is configured and store all not devices configured in a file.
+   hosts: all
+   connection: local
+   gather_facts: no
+   vars:
+     dir: "{{ playbook_dir }}/results"
+     outfile: "noNTP.text"
+
+   tasks:
+   - name: Delete directory if exists.
+     local_action: file path={{dir}} state=absent 
+     run_once: true 
+   - name: Recreate empty directory.  
+     local_action: file path={{dir}} state=directory 
+     run_once: true 
+   - name: Create an empty file.
+     file: path={{ dir }}/{{ outfile }} state=touch
+     run_once: true
+   - name: show ntp status
+     junos_command:  
+       commands:
+       - show ntp status
+       display: xml
+     register: cli
+   - name: Add to file if no status.
+     lineinfile: dest={{ dir }}/{{ outfile }} 
+                 regexp='{{ inventory_hostname }}'
+                 line='{{ inventory_hostname }} No NTP configured on this device!'
+     when: '"timed out, nothing received" in cli.output[0]["rpc-reply"]["output"]'
