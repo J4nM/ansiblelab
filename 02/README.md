@@ -1,7 +1,9 @@
 README
 ===================
 
-## Saving router configurations to file.
+
+
+## 1. Saving router configurations to file.
 
 
 ```shell
@@ -25,7 +27,7 @@ drwxr-xr-x 8 root root 4096 Oct  5 11:24 ../
 -rw-r--r-- 1 root root 3326 Oct  5 11:24 vqfx2.conf
 ```
 
-## Saving router configurations to file is set command style.
+## 2. Saving router configurations to file is set command style.
 
 ```shell
 # ansible-playbook report2.yaml  
@@ -54,11 +56,12 @@ drwxr-xr-x 8 root root 4096 Oct  5 11:24 ../
 -rw-r--r-- 1 root root 2857 Oct  5 11:25 vqfx2.set.conf
 ```
 
-## Find out if NTP is configured on a device and if not record which device in a file.
+## 3. Find out if NTP is configured on a device and if not record which device in a file.
 
-# ansible-playbook report3.yaml  
 
 ```shell
+# ansible-playbook report3.yaml  
+
 PLAY [Check if NTP is configured and store all not devices configured in a file.] ***********************************************************************************************
 
 TASK [Delete directory if exists.] **********************************************************************************************************************************************
