@@ -1,0 +1,50 @@
+system {
+    time-zone UTC;
+    root-authentication {
+        encrypted-password "$1$3ttX6Wqv$vYBmNrdOf9f.OQRQxf/SQ1";
+    }
+    name-server {
+        192.168.1.1;
+        8.8.4.4;
+    }
+    services {
+        netconf {
+            ssh;
+        }
+        ssh;
+    }
+    login {
+        message "  _      ____                         _   _    _    \n (_)_ __/ ___| _ __   __ _  ___ ___  | \\ | |  / \\   \n | | '_ \\___ \\| '_ \\ / _` |/ __/ _ \\ |  \\| | / _ \\  \n | | |_) |__) | |_) | (_| | (_|  __/ | |\\  |/ ___ \\ \n |_| .__/____/| .__/ \\__,_|\\___\\___| |_| \\_/_/   \\_\\\n   |_|        |_|                                   \n";
+        user remote {
+            class super-user;
+        }
+        user local_auth {
+            class super-user;
+            authentication {
+                encrypted-password "$1$3ttX6Wqv$vYBmNrdOf9f.OQRQxf/SQ1";
+                }
+            }
+        } 
+    
+    syslog {
+        user * {
+            any emergency;
+        }
+        host 192.168.1.98 {
+            any any;
+            daemon info;
+        }
+        file messages {
+            any notice;
+        }
+        file cli-commands {
+            interactive-commands any; 
+            explicit-priority;
+        }
+        time-format millisecond;
+    }
+    ntp {
+        server 192.168.1.4;
+    }
+}
+ 

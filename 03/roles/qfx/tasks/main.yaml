@@ -1,0 +1,5 @@
+---
+- name: Building vqfx specific things...
+  template: >
+    src=vqfx.conf.j2
+    dest={{ build_dir }}/vqfx.conf.part

@@ -1,0 +1,34 @@
+qfx:
+  mgmt_interface:
+    em0:
+    ip: DHCP
+  loopbacks:
+    lo0:
+      ip: 192.168.254.1
+      mask: 32
+  uplinks:
+    em4:
+      ip: 10.44.1.1
+      mask: 24
+    em5:
+      ip: 10.45.1.1
+      mask: 24
+  server_interfaces:
+    em3:
+      ip: 10.10.1.1
+      mask: 24
+
+  bgp_global:
+    as_number: 65001;
+    logging: log-updown
+    gr: graceful-restart
+
+  bgp_neighbors:
+    peer1:
+      group: LAB
+      type: external
+      peer_as: 65002
+      neighbor_address: 10.44.1.2
+      local_address: 10.44.1.1
+      import_policy: BGP-IN
+      export_policy: BGP-OUT

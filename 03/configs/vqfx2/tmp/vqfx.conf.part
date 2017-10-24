@@ -1,0 +1,71 @@
+system {
+    host-name vqfx2;
+}
+interfaces {
+    em0 {
+        unit 0 {
+            family inet { 
+      	        dhcp
+            }
+        }
+    }	
+    lo0 {
+        unit 0 {
+            family inet {
+                address 192.168.254.2/32;
+           }
+        }
+    }
+    em5 {
+        unit 0 {
+            family inet {
+                address 10.45.1.2/24;
+            }
+        }
+    }
+    em4 {
+        unit 0 {
+            family inet {
+                address 10.44.1.2/24;
+            }
+        }
+    }
+    em3 {
+        unit 0 {
+            family inet {
+                address 10.10.1.2/24;
+            }
+        }
+    }
+}
+
+routing-options {
+    autonomous-system 65002;
+    router-id 192.168.254.2
+    }
+
+protocols {
+    bgp {
+        log-updown
+        graceful-restart;
+        group LAB {
+            type external;
+            import BGP-IN;
+            export BGP-OUT;
+            peer-as 65001;
+            neighbor 10.44.1.1;
+        }
+    }
+}
+
+policy-options { 
+ 
+    policy-statement BGP-IN { 
+        then accept; 
+    } 
+    policy-statement BGP-OUT { 
+        then accept; 
+    } 
+ 
+}
+

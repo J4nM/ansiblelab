@@ -1,0 +1,8 @@
+---
+config_dir: "{{ playbook_dir }}/configs/"
+junos_conf: "{{ config_dir }}/{{ inventory_hostname }}/junos.conf"
+build_dir: "{{ config_dir }}/{{ inventory_hostname }}/tmp"
+
+global:
+  root_hash: $1$3ttX6Wqv$vYBmNrdOf9f.OQRQxf/SQ1
+  login_message: XX_      ____                         _   _    _    \n (_)_ __/ ___| _ __   __ _  ___ ___  | \\ | |  / \\   \n | | '_ \\___ \\| '_ \\ / _` |/ __/ _ \\ |  \\| | / _ \\  \n | | |_) |__) | |_) | (_| | (_|  __/ | |\\  |/ ___ \\ \n |_| .__/____/| .__/ \\__,_|\\___\\___| |_| \\_/_/   \\_\\\n   |_|        |_|                                   \n

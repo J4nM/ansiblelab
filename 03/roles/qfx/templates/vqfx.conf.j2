@@ -1,0 +1,81 @@
+#jinja2: lstrip_blocks: True, preserve_trailing_newlines: False, trim_blocks: True
+system {
+    host-name {{ inventory_hostname }};
+}
+interfaces {
+    em0 {
+        unit 0 {
+            family inet { 
+		{% if qfx.mgmt_interface.ip == 'DHCP' %}
+      	        dhcp
+        {% else %}	
+      	        address {{ qfx.mgmt_interface.ip }}/{{ qfx.mgmt_interface.mask }};
+        {% endif %}
+            }
+        }
+    }	
+    {% for ifnum, intf in qfx.loopbacks.items() %}
+    {{ ifnum }} {
+        unit 0 {
+            family inet {
+                address {{ intf.ip }}/{{ intf.mask }};
+           }
+        }
+    }
+    {% endfor %}
+    {% for ifnum, intf in qfx.uplinks.items() %}
+    {{ ifnum }} {
+        unit 0 {
+            family inet {
+                address {{ intf.ip }}/{{ intf.mask }};
+            }
+        }
+    }
+    {% endfor %}
+    {% for ifnum, intf in qfx.server_interfaces.items() %}
+    {{ ifnum }} {
+        unit 0 {
+            family inet {
+                address {{ intf.ip }}/{{ intf.mask }};
+            }
+        }
+    }
+    {% endfor %}
+}
+
+routing-options {
+    {%   if qfx.bgp_global.as_number is defined %}
+    autonomous-system {{ qfx.bgp_global.as_number }}
+    {%   endif %}
+    router-id {{ qfx.loopbacks.lo0.ip }}
+    }
+
+protocols {
+    bgp {
+        {{qfx.bgp_global.logging|default('log-updown')}}
+        {%   if qfx.bgp_global.gr is defined %}
+        {{ qfx.bgp_global.gr }};
+        {%   endif %}
+        {% for peers, param in qfx.bgp_neighbors.items() %}
+        group {{ param.group }} {
+            type {{ param.type }};
+            import {{ param.import_policy }};
+            export {{ param.export_policy }};
+            peer-as {{ param.peer_as }};
+            neighbor {{ param.neighbor_address }};
+        }
+    	{% endfor %}
+    }
+}
+
+policy-options { 
+{% for peers, param in qfx.bgp_neighbors.items() %} 
+    policy-statement {{ param.import_policy }} { 
+        then accept; 
+    } 
+    policy-statement {{ param.export_policy }} { 
+        then accept; 
+    } 
+{% endfor %} 
+}
+

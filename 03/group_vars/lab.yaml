@@ -1,0 +1,18 @@
+location:
+  time_zone: UTC
+  name_servers:
+    - 192.168.1.1
+    - 8.8.4.4
+  syslog_servers:
+    - 192.168.1.98
+  ntp_servers:
+    - 192.168.1.4
+  snmp:
+    location: "Lab"
+    contact: JanM
+    polling:
+      - community: SecretSause
+        clients: 192.168.1.0/24
+    traps:
+      - group_name: wild_trapper
+        target: 192.168.1.98

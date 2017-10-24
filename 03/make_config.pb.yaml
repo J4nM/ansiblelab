@@ -1,0 +1,34 @@
+---
+ - name: Build Juniper vQFX configs with jinja2 templates.
+   hosts: all
+   connection: local
+   gather_facts: no
+
+   tasks:
+   - name: Delete directory if exists.
+     local_action: file path={{config_dir}} state=absent 
+     run_once: true 
+   - name: Recreate empty directory.  
+     local_action: file path={{config_dir}} state=directory 
+     run_once: true 
+   - name: Create directory for each element.
+     file: path={{ config_dir }}/{{ inventory_hostname }} state=directory
+   - name: Create tmp output directory for each element.
+     file: path={{ config_dir }}/{{ inventory_hostname }}/tmp state=directory
+
+ - name: Create vQFX configuration from specified roles.
+   hosts: qfx
+   connection: local
+   gather_facts: no
+   roles:
+     - common
+     - qfx
+
+ - name: Concatenate the configuration
+   hosts: all
+   connection: local
+   gather_facts: no
+
+   tasks:
+     - name: assembling configfurations
+       assemble: src={{ build_dir }} dest={{ junos_conf }}

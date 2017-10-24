@@ -1,0 +1,5 @@
+---
+- name: Building base part
+  template: >
+    src=base.conf.j2
+    dest={{ build_dir }}/base.conf.part

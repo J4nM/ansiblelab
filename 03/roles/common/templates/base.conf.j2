@@ -1,0 +1,57 @@
+#jinja2: lstrip_blocks: True
+system {
+    time-zone {{ location.time_zone }};
+    root-authentication {
+        encrypted-password "{{ global.root_hash }}";
+    }
+    name-server {
+    {% for name_server in location.name_servers %}
+        {{ name_server }};
+    {% endfor %}
+    }
+    services {
+        netconf {
+            ssh;
+        }
+        ssh;
+    }
+    login {
+        message "{{ global.login_message |replace('XX', '  ') }}";
+        user remote {
+            class super-user;
+        }
+        user local_auth {
+            class super-user;
+            authentication {
+                {# note the local_auth uses the same password as the root user. Not ideal for security, just done out of laziness ;) #}
+                encrypted-password "{{ global.root_hash }}";
+                }
+            }
+        } 
+    
+    syslog {
+        user * {
+            any emergency;
+        }
+        {% for server in location.syslog_servers %}
+        host {{ server }} {
+            any any;
+            daemon info;
+        }
+        {% endfor %}
+        file messages {
+            any notice;
+        }
+        file cli-commands {
+            interactive-commands any; 
+            explicit-priority;
+        }
+        time-format millisecond;
+    }
+    ntp {
+        {% for ntp_server in location.ntp_servers %}
+        server {{ ntp_server }};
+        {% endfor %}
+    }
+}
+ 
