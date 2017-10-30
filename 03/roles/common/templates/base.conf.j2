@@ -23,7 +23,6 @@ system {
         user local_auth {
             class super-user;
             authentication {
-                {# note the local_auth uses the same password as the root user. Not ideal for security, just done out of laziness ;) #}
                 encrypted-password "{{ global.root_hash }}";
                 }
             }

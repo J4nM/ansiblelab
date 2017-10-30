@@ -6,7 +6,7 @@ interfaces {
     em0 {
         unit 0 {
             family inet { 
-		{% if qfx.mgmt_interface.ip == 'DHCP' %}
+        {% if qfx.mgmt_interface.ip == 'DHCP' %}
       	        dhcp
         {% else %}	
       	        address {{ qfx.mgmt_interface.ip }}/{{ qfx.mgmt_interface.mask }};
