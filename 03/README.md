@@ -23,10 +23,6 @@
 * [roles/common/templates/base.conf.j2](https://github.com/J4nM/ansiblelab/blob/master/03/roles/common/templates/base.conf.j2)
 * [roles/qfx/templates/vqfx.conf.j2](https://github.com/J4nM/ansiblelab/blob/master/03/roles/qfx/templates/vqfx.conf.j2)
 
-## Playbook
-* [make_config.pb.yaml](https://github.com/J4nM/ansiblelab/blob/master/03/make_config.pb.yaml)
-
-
 ## File layout
 
 ```
@@ -62,6 +58,9 @@
         └── templates
             └── vqfx.conf.j2				#Jinja2 template for element specific part.
 ```
+
+## Playbook
+* [make_config.pb.yaml](https://github.com/J4nM/ansiblelab/blob/master/03/make_config.pb.yaml)
 
 ## Example play
 
