@@ -1,31 +1,33 @@
 # Homework #3
 
-## Goal
-# Deploy BGP peering between two Juniper vQFX
+# Goal
+## Create configuration files to deploy BGP peering between two Juniper vQFX
 * Keep general, common and site specific data separate in group_vars.  
 * Have all node/service specific data in element specific files in host_vars.
 * Create separate files for each part and then join them in a final configuration file.
 * Try out some Jinja2 features like default values, if-else conditions and loops.
 
-## Building blocks
-# group_vars
+# Building blocks
+## group_vars
 
 * [group_vars/all.yaml](https://github.com/J4nM/ansiblelab/blob/master/03/group_vars/all.yaml)
 * [group_vars/lab.yaml](https://github.com/J4nM/ansiblelab/blob/master/03/group_vars/lab.yaml)
 
-# host_vars
+## host_vars
 
 * [host_vars/vqfx1.yaml](https://github.com/J4nM/ansiblelab/blob/master/03/host_vars/vqfx1.yaml)
 * [host_vars/vqfx2.yaml](https://github.com/J4nM/ansiblelab/blob/master/03/host_vars/vqfx2.yaml)
 
-# Roles
+## Roles
 
 * [roles/common/templates/base.conf.j2](https://github.com/J4nM/ansiblelab/blob/master/03/roles/common/templates/base.conf.j2)
 * [roles/qfx/templates/vqfx.conf.j2](https://github.com/J4nM/ansiblelab/blob/master/03/roles/qfx/templates/vqfx.conf.j2)
 
-# Playbook
+## Playbook
 * [make_config.pb.yaml](https://github.com/J4nM/ansiblelab/blob/master/03/make_config.pb.yaml)
 
+
+## File layout
 
 ```
 ├── ansible.cfg
