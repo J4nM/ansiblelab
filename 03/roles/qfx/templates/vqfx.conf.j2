@@ -5,15 +5,15 @@ system {
 interfaces {
     em0 {
         unit 0 {
-            family inet { 
+            family inet {
         {% if qfx.mgmt_interface.ip == 'DHCP' %}
       	        dhcp
-        {% else %}	
+        {% else %}
       	        address {{ qfx.mgmt_interface.ip }}/{{ qfx.mgmt_interface.mask }};
         {% endif %}
             }
         }
-    }	
+    }
     {% for ifnum, intf in qfx.loopbacks.items() %}
     {{ ifnum }} {
         unit 0 {
@@ -72,14 +72,14 @@ protocols {
     }
 }
 
-policy-options { 
-{% for peers, param in qfx.bgp_neighbors.items() %} 
-    policy-statement {{ param.import_policy }} { 
-        then accept; 
-    } 
-    policy-statement {{ param.export_policy }} { 
-        then accept; 
-    } 
-{% endfor %} 
+policy-options {
+{% for peers, param in qfx.bgp_neighbors.items() %}
+    policy-statement {{ param.import_policy }} {
+        then accept;
+    }
+    policy-statement {{ param.export_policy }} {
+        then accept;
+    }
+{% endfor %}
 }
 
