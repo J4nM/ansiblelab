@@ -8,6 +8,7 @@ qfx:
       mask: 32
   uplinks:
     em4:
+      description: TO::vqfx1
       ip: 10.44.1.2
       mask: 24
     em5:
@@ -24,12 +25,8 @@ qfx:
     gr: graceful-restart
 
   bgp_neighbors:
-    peer1:
+    vqfx1:
       group: LAB
       type: external
-      peer_as: 65001
-      neighbor_address: 10.44.1.1
-      local_address: 10.44.1.2
       import_policy: BGP-IN
-      export_policy: BGP-OUT
-      
+      export_policy: BGP-OUT      

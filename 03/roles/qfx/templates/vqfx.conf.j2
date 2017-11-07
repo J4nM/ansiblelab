@@ -44,25 +44,29 @@ interfaces {
 }
 
 routing-options {
-    {%   if qfx.bgp_global.as_number is defined %}
+    {% if qfx.bgp_global.as_number is defined %}
     autonomous-system {{ qfx.bgp_global.as_number }}
-    {%   endif %}
+    {% endif %}
     router-id {{ qfx.loopbacks.lo0.ip }}
     }
 
 protocols {
     bgp {
         {{qfx.bgp_global.logging|default('log-updown')}}
-        {%   if qfx.bgp_global.gr is defined %}
+        {% if qfx.bgp_global.gr is defined %}
         {{ qfx.bgp_global.gr }};
-        {%   endif %}
+        {% endif %}
         {% for peers, param in qfx.bgp_neighbors.items() %}
         group {{ param.group }} {
             type {{ param.type }};
             import {{ param.import_policy }};
             export {{ param.export_policy }};
-            peer-as {{ param.peer_as }};
-            neighbor {{ param.neighbor_address }};
+            peer-as {{ hostvars[peers].qfx.bgp_global.as_number }};
+            {% for ifnum, intf in qfx.uplinks.items() %}
+                {% if (intf.description is defined) and (intf.description| regex_search((peers)))  %}
+            local-address {{ intf.ip }}
+                {% endif %}
+           {% endfor %}
         }
     	{% endfor %}
     }
